@@ -37,11 +37,6 @@ npm run dev
 
 Подключить `lightweight-charts` в `components/Chart.tsx`:
 
-```typescript
-import { createChart } from 'lightweight-charts'
-import { candlestickData } from '@/data/candlesticks'
-```
-
 **Требования:**
 - Создать candlestick chart
 - Тёмная тема (цвета в CSS переменных)
