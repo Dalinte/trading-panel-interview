@@ -1,31 +1,64 @@
 import type { PositionInput, CalculatedValues, ValidationResult } from '@/types'
 
+const MAINTENANCE_MARGIN_RATE = 0.005 // 0.5%
+const MAX_LEVERAGE = 20
+
 /**
  * Calculate position values based on input
- * 
- * Formulas:
- * - Notional Value = entryPrice * size
- * - Required Margin = notionalValue / leverage
- * - Maintenance Margin = notionalValue * 0.005 (0.5%)
- * - Liquidation Price:
- *   - Long: entryPrice * (1 - 1/leverage + 0.005)
- *   - Short: entryPrice * (1 + 1/leverage - 0.005)
  */
 export function calculatePosition(input: PositionInput): CalculatedValues {
-  throw new Error('Not implemented')
+  const { entryPrice, size, leverage, side } = input
+
+  const notionalValue = entryPrice * size
+  const requiredMargin = notionalValue / leverage
+  const maintenanceMargin = notionalValue * MAINTENANCE_MARGIN_RATE
+
+  // Liquidation price depends on position side
+  const liquidationPrice =
+    side === 'long'
+      ? entryPrice * (1 - 1 / leverage + MAINTENANCE_MARGIN_RATE)
+      : entryPrice * (1 + 1 / leverage - MAINTENANCE_MARGIN_RATE)
+
+  return {
+    notionalValue,
+    requiredMargin,
+    maintenanceMargin,
+    liquidationPrice,
+  }
 }
 
 /**
  * Validate position input
- * 
- * Rules:
- * - leverage must be between 1 and 20
- * - requiredMargin must be greater than maintenanceMargin
- * - All fields must be filled and > 0
  */
 export function validatePosition(
   input: PositionInput,
   calculated: CalculatedValues
 ): ValidationResult {
-  throw new Error('Not implemented')
+  const errors: string[] = []
+
+  // Check all fields are filled and positive
+  if (!input.entryPrice || input.entryPrice <= 0) {
+    errors.push('Entry price must be greater than 0')
+  }
+  if (!input.size || input.size <= 0) {
+    errors.push('Size must be greater than 0')
+  }
+  if (!input.leverage || input.leverage <= 0) {
+    errors.push('Leverage must be greater than 0')
+  }
+
+  // Check leverage limit
+  if (input.leverage > MAX_LEVERAGE) {
+    errors.push(`Leverage cannot exceed ${MAX_LEVERAGE}x`)
+  }
+
+  // Check margin requirements
+  if (calculated.requiredMargin <= calculated.maintenanceMargin) {
+    errors.push('Required margin must be greater than maintenance margin')
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+  }
 }

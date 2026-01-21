@@ -1,75 +1,108 @@
 # Trading Panel
 
 **Stack:** React + TypeScript  
-**UI:** Любой (CSS, Tailwind, MUI — на выбор)
+**Время:** 60-90 мин
+
+---
+
+## Запуск
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+## Референс
+
+![Trading Panel](https://iimg.su/i/QrvPwm)
+
+---
+
+## Что готово ✅
+
+- **Layout:** График слева, панель справа
+- **Компоненты-заглушки:** с интерфейсами и описанием
+- **CSS:** все стили готовы
+- **Mock данные:** candlestick data для графика
+- **Типы и расчёты:** `types/`, `utils/calculations.ts`
+- **Mock API:** `api/mock.ts`
 
 ---
 
 ## Задание
 
-### Часть 1: Trading Panel
-Сверастать: https://iimg.su/i/QrvPwm
+### Часть 1: График
 
-### Часть 2: Форма позиции
-
-Создать **Trading Form** с полями:
-
-| Поле        | Тип          | Описание                   |
-|-------------|--------------|----------------------------|
-| Side        | Toggle       | Long / Short               |
-| Entry Price | number input | Цена входа в позицию       |
-| Size        | number input | Количество контрактов      |
-| Leverage    | slider 1-20x | Кредитное плечо            |
-
-#### Расчёты в реальном времени
-
-Реализовать в `src/utils/calculations.ts`:
+Подключить `lightweight-charts` в `components/Chart.tsx`:
 
 ```typescript
-// Notional Value (объём позиции в $)
-notionalValue = entryPrice * size
-
-// Required Margin (необходимый залог)
-requiredMargin = notionalValue / leverage
-
-// Maintenance Margin (минимальный залог, 0.5% от notional)
-maintenanceMargin = notionalValue * 0.005
-
-// Liquidation Price
-// Long:
-liquidationPrice = entryPrice * (1 - 1/leverage + 0.005)
-// Short:
-liquidationPrice = entryPrice * (1 + 1/leverage - 0.005)
+import { createChart } from 'lightweight-charts'
+import { candlestickData } from '@/data/candlesticks'
 ```
 
-#### Валидация
+**Требования:**
+- Создать candlestick chart
+- Тёмная тема (цвета в CSS переменных)
+- Responsive (resize при изменении окна)
+- Cleanup при unmount
 
-Реализовать:
-
-- `leverage` ≤ 20
-- `requiredMargin` > `maintenanceMargin`
-- Все поля заполнены и > 0
-
-При ошибке:
-- Показать warning message
-- Disable кнопку "Open Position"
+**Документация:** https://tradingview.github.io/lightweight-charts/
 
 ---
 
-### Часть 3: Order Flow
+### Часть 2: Компоненты формы
 
-После нажатия **"Open Position"**:
+| Компонент | Файл | Описание |
+|-----------|------|----------|
+| `SideTabs` | `SideTabs.tsx` | Табы Buy/Sell |
+| `OrderTypeSelector` | `OrderTypeSelector.tsx` | Limit/Market |
+| `PriceInput` | `PriceInput.tsx` | Инпут цены |
+| `SizeInput` | `SizeInput.tsx` | Инпут количества |
+| `PercentSlider` | `PercentSlider.tsx` | Кнопки 25/50/75/100% |
+| `SubmitButton` | `SubmitButton.tsx` | Кнопка отправки |
 
-#### Mock API (уже готов в `src/api/mock.ts`)
+**CSS классы уже готовы** — см. комментарии в файлах.
 
-```typescript
-// POST /api/order — создание ордера
-createOrder(data) → { orderId: string }
+---
 
-// GET /api/order/:id — статус ордера  
-getOrderStatus(orderId) → {
-  status: 'pending' | 'accepted' | 'rejected' | 'filled',
-  filledSize?: number,
-  reason?: string
-}
+### Часть 3: Собрать форму
+
+В `TradingPanel.tsx`:
+1. Подключить компоненты
+2. Добавить state
+3. Расчёты в реальном времени (`calculatePosition`)
+4. Валидация (`validatePosition`)
+
+---
+
+### Часть 4: Order Flow
+
+После нажатия кнопки:
+1. `createOrder()` → получить orderId
+2. Polling `getOrderStatus()` каждые 1-2 сек
+3. Показать статус
+4. Обработать ошибки
+
+---
+
+## Структура
+
+```
+src/
+├── api/mock.ts              # ✅ Mock API
+├── types/index.ts           # ✅ Типы
+├── utils/calculations.ts    # ✅ Расчёты
+├── data/candlesticks.ts     # ✅ Данные для графика
+├── components/
+│   ├── Chart.tsx            # 📝 Подключить lightweight-charts
+│   ├── TradingPanel.tsx     # 📝 Собрать форму
+│   ├── SideTabs.tsx         # 📝 Реализовать
+│   ├── OrderTypeSelector.tsx# 📝 Реализовать
+│   ├── PriceInput.tsx       # 📝 Реализовать
+│   ├── SizeInput.tsx        # 📝 Реализовать
+│   ├── PercentSlider.tsx    # 📝 Реализовать
+│   └── SubmitButton.tsx     # 📝 Реализовать
+└── index.css                # ✅ Стили готовы
 ```
