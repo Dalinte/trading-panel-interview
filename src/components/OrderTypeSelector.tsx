@@ -1,4 +1,4 @@
-export type OrderType = 'limit' | 'market'
+import {OrderType} from "@/types";
 
 interface OrderTypeSelectorProps {
   value: OrderType
@@ -15,6 +15,9 @@ interface OrderTypeSelectorProps {
  */
 export function OrderTypeSelector({ value, onChange }: OrderTypeSelectorProps) {
   return (
-    <div>TODO: OrderTypeSelector</div>
+    <div className='order-types'>
+      <button className={`order-type ${value === 'limit' && 'active' }`} onClick={() => onChange('limit')}>Limit</button>
+      <button className={`order-type ${value === 'market' && 'active' }`} onClick={() => onChange('market')}>Market</button>
+    </div>
   )
 }

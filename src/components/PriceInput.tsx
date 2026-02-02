@@ -16,6 +16,9 @@ interface PriceInputProps {
  */
 export function PriceInput({ value, onChange, label, suffix, placeholder }: PriceInputProps) {
   return (
-    <div>TODO: PriceInput</div>
+    <div className='input-wrapper'>
+      <span className="input-suffix">$</span>
+      <input type="text" className="input-field"/>
+    </div>
   )
 }

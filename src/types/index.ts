@@ -1,4 +1,5 @@
 export type Side = 'long' | 'short'
+export type OrderType = 'limit' | 'market'
 
 export type OrderStatus = 'pending' | 'accepted' | 'rejected' | 'filled'
 

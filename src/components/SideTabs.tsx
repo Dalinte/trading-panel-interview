@@ -15,6 +15,9 @@ interface SideTabsProps {
  */
 export function SideTabs({ value, onChange }: SideTabsProps) {
   return (
-    <div>TODO: SideTabs</div>
+    <div className="side-tabs">
+      <button className={`side-tab buy ${value === 'long' && 'active' }`} onClick={() => onChange('long')}>Buy</button>
+      <button className={`side-tab sell ${value === 'short' && 'active' }`} onClick={() => onChange('short')}>Sell</button>
+    </div>
   )
 }
