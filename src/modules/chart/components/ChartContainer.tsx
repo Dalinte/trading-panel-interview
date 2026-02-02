@@ -8,21 +8,13 @@ interface ChartContainerProps {
     backgroundColor?: string;
     lineColor?: string;
     textColor?: string;
-    areaTopColor?: string;
-    areaBottomColor?: string;
   };
 }
 
 export const ChartContainer = (props: ChartContainerProps) => {
   const {
     data,
-    colors: {
-      backgroundColor = '#1e2329',
-      lineColor = '#121529',
-      textColor = 'white',
-      areaTopColor = '#2962FF',
-      areaBottomColor = 'rgba(41, 98, 255, 0.28)',
-    } = {},
+    colors: { backgroundColor = '#1e2329', lineColor = '#2b3139', textColor = 'white' } = {},
   } = props;
 
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
@@ -55,7 +47,7 @@ export const ChartContainer = (props: ChartContainerProps) => {
 
       chart.remove();
     };
-  }, [data, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]);
+  }, [data, backgroundColor, lineColor, textColor]);
 
   return <div ref={chartContainerRef} />;
 };

@@ -1,4 +1,4 @@
-import { ChartWidget } from './modules/chart/components/ChartWidget.tsx';
+import { ChartWidget } from '@/modules/chart';
 import { TradingPanel } from './components/TradingPanel';
 
 function App() {

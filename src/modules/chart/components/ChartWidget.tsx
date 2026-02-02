@@ -34,9 +34,7 @@ export function ChartWidget({ symbol = 'BTC/USDC' }: ChartProps) {
       <div className="chart-header">
         <span className="chart-symbol">{symbol}</span>
       </div>
-      <div>
-        <ChartContainer data={candlestickData}></ChartContainer>
-      </div>
+      <ChartContainer data={candlestickData}></ChartContainer>
     </div>
   );
 }
