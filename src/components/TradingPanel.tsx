@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import {OrderType, Side} from '@/types'
+import { useState } from 'react';
+import { OrderType, Side } from '@/types';
 
 // TODO: Import your components
-import { SideTabs } from './SideTabs'
-import {OrderTypeSelector} from "@/components/OrderTypeSelector.tsx";
-import {PriceInput} from "@/components/PriceInput.tsx";
+import { SideTabs } from './SideTabs';
+import { OrderTypeSelector } from '@/components/OrderTypeSelector.tsx';
+import { PriceInput } from '@/components/PriceInput.tsx';
 // import { OrderTypeSelector } from './OrderTypeSelector'
 // import { PriceInput } from './PriceInput'
 // import { SizeInput } from './SizeInput'
@@ -12,11 +12,11 @@ import {PriceInput} from "@/components/PriceInput.tsx";
 // import { SubmitButton } from './SubmitButton'
 
 export function TradingPanel() {
-  const [side, setSide] = useState<Side>('long')
-  const [orderType, setOrderType] = useState<OrderType>('limit')
+  const [side, setSide] = useState<Side>('long');
+  const [orderType, setOrderType] = useState<OrderType>('limit');
 
   // Available balance (mock data)
-  const availableBalance = 10000 // USDC
+  const availableBalance = 10000; // USDC
 
   return (
     <div className="trading-panel">
@@ -25,7 +25,7 @@ export function TradingPanel() {
       </div>
 
       <div className="component-placeholder">
-         <SideTabs value={side} onChange={setSide} />
+        <SideTabs value={side} onChange={setSide} />
       </div>
 
       {/* 
@@ -34,7 +34,7 @@ export function TradingPanel() {
         Табы "Лимитный" / "Рыночный"
       */}
       <div className="component-placeholder">
-        <OrderTypeSelector value={orderType} onChange={setOrderType}  />
+        <OrderTypeSelector value={orderType} onChange={setOrderType} />
       </div>
 
       <div className="balance-row">
@@ -86,5 +86,5 @@ export function TradingPanel() {
         <span>SubmitButton</span>
       </div>
     </div>
-  )
+  );
 }

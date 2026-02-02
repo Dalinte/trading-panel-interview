@@ -38,6 +38,7 @@ npm run dev
 Подключить `lightweight-charts` в `components/Chart.tsx`:
 
 **Требования:**
+
 - Создать candlestick chart
 - Тёмная тема (цвета в CSS переменных)
 - Responsive (resize при изменении окна)
@@ -49,14 +50,14 @@ npm run dev
 
 ### Часть 2: Компоненты формы
 
-| Компонент | Файл | Описание |
-|-----------|------|----------|
-| `SideTabs` | `SideTabs.tsx` | Табы Buy/Sell |
-| `OrderTypeSelector` | `OrderTypeSelector.tsx` | Limit/Market |
-| `PriceInput` | `PriceInput.tsx` | Инпут цены |
-| `SizeInput` | `SizeInput.tsx` | Инпут количества |
-| `PercentSlider` | `PercentSlider.tsx` | Кнопки 25/50/75/100% |
-| `SubmitButton` | `SubmitButton.tsx` | Кнопка отправки |
+| Компонент           | Файл                    | Описание             |
+| ------------------- | ----------------------- | -------------------- |
+| `SideTabs`          | `SideTabs.tsx`          | Табы Buy/Sell        |
+| `OrderTypeSelector` | `OrderTypeSelector.tsx` | Limit/Market         |
+| `PriceInput`        | `PriceInput.tsx`        | Инпут цены           |
+| `SizeInput`         | `SizeInput.tsx`         | Инпут количества     |
+| `PercentSlider`     | `PercentSlider.tsx`     | Кнопки 25/50/75/100% |
+| `SubmitButton`      | `SubmitButton.tsx`      | Кнопка отправки      |
 
 **CSS классы уже готовы** — см. комментарии в файлах.
 
@@ -65,6 +66,7 @@ npm run dev
 ### Часть 3: Собрать форму
 
 В `TradingPanel.tsx`:
+
 1. Подключить компоненты
 2. Добавить state
 3. Расчёты в реальном времени (`calculatePosition`)
@@ -75,6 +77,7 @@ npm run dev
 ### Часть 4: Order Flow
 
 После нажатия кнопки:
+
 1. `createOrder()` → получить orderId
 2. Polling `getOrderStatus()` каждые 1-2 сек
 3. Показать статус

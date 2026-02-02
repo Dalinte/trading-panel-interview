@@ -1,11 +1,11 @@
-import {ChartComponent} from "@/components/ChartView.tsx";
-import {candlestickData} from "@/data/candlesticks.ts";
+import { ChartComponent } from '@/components/ChartView.tsx';
+import { candlestickData } from '@/data/candlesticks.ts';
 
 // Data is ready to use
 // import { candlestickData, volumeData } from '@/data/candlesticks'
 
 interface ChartProps {
-  symbol?: string
+  symbol?: string;
 }
 
 /**
@@ -41,5 +41,5 @@ export function Chart({ symbol = 'BTC/USDC' }: ChartProps) {
         <ChartComponent data={candlestickData}></ChartComponent>
       </div>
     </div>
-  )
+  );
 }

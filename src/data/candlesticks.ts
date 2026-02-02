@@ -33,7 +33,7 @@ export const candlestickData = [
   { time: '2024-01-28', open: 47200, high: 47800, low: 46800, close: 47000 },
   { time: '2024-01-29', open: 47000, high: 47200, low: 46000, close: 46500 },
   { time: '2024-01-30', open: 46500, high: 47000, low: 46200, close: 46800 },
-]
+];
 
 /**
  * Volume data (optional)
@@ -42,4 +42,4 @@ export const volumeData = candlestickData.map((candle, i) => ({
   time: candle.time,
   value: Math.floor(Math.random() * 1000000000) + 500000000,
   color: candle.close >= candle.open ? '#0ecb8180' : '#f6465d80',
-}))
+}));

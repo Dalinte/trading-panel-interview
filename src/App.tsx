@@ -1,5 +1,5 @@
-import { Chart } from './components/Chart'
-import { TradingPanel } from './components/TradingPanel'
+import { Chart } from './components/Chart';
+import { TradingPanel } from './components/TradingPanel';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <TradingPanel />
       </aside>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
