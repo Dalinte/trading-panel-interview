@@ -1,8 +1,5 @@
-import { ChartComponent } from '@/components/ChartView.tsx';
-import { candlestickData } from '@/data/candlesticks.ts';
-
-// Data is ready to use
-// import { candlestickData, volumeData } from '@/data/candlesticks'
+import { ChartContainer} from './ChartContainer.tsx';
+import { candlestickData } from './../mock/candlesticks.ts';
 
 interface ChartProps {
   symbol?: string;
@@ -31,14 +28,14 @@ interface ChartProps {
  * candlestickSeries.setData(data)
  * ```
  */
-export function Chart({ symbol = 'BTC/USDC' }: ChartProps) {
+export function ChartWidget({ symbol = 'BTC/USDC' }: ChartProps) {
   return (
     <div className="chart-container">
       <div className="chart-header">
         <span className="chart-symbol">{symbol}</span>
       </div>
       <div>
-        <ChartComponent data={candlestickData}></ChartComponent>
+        <ChartContainer data={candlestickData}></ChartContainer>
       </div>
     </div>
   );

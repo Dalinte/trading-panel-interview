@@ -1,4 +1,4 @@
-export { Chart } from './Chart';
+export { ChartWidget } from '../modules/chart/components/ChartWidget.tsx';
 export { TradingPanel } from './TradingPanel';
 export { SideTabs } from './SideTabs';
 export { OrderTypeSelector } from './OrderTypeSelector';

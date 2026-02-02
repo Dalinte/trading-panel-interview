@@ -1,13 +1,25 @@
-import { createChart, ColorType, LineStyle } from 'lightweight-charts';
+import { createChart, ColorType, CandlestickSeries } from 'lightweight-charts';
 import { useEffect, useRef } from 'react';
+import { Candle } from '../types.ts';
 
-export const ChartComponent = props => {
+interface ChartContainerProps {
+  data: Candle[];
+  colors?: {
+    backgroundColor?: string;
+    lineColor?: string;
+    textColor?: string;
+    areaTopColor?: string;
+    areaBottomColor?: string;
+  };
+}
+
+export const ChartContainer = (props: ChartContainerProps) => {
   const {
     data,
     colors: {
-      backgroundColor = '#121529FF',
+      backgroundColor = '#1e2329',
       lineColor = '#121529',
-      textColor = 'black',
+      textColor = 'white',
       areaTopColor = '#2962FF',
       areaBottomColor = 'rgba(41, 98, 255, 0.28)',
     } = {},
@@ -33,16 +45,7 @@ export const ChartComponent = props => {
     });
     chart.timeScale().fitContent();
 
-    const newSeries = chart.addCandlestickSeries({
-      topColor: areaTopColor,
-      bottomColor: areaBottomColor,
-      lineWidth: 2,
-      lineStyle: LineStyle.Solid,
-      crosshairMarkerVisible: true,
-      crosshairMarkerRadius: 4,
-      crosshairMarkerBorderColor: '#ffffff',
-      crosshairMarkerBackgroundColor: lineColor,
-    });
+    const newSeries = chart.addSeries(CandlestickSeries);
     newSeries.setData(data);
 
     window.addEventListener('resize', handleResize);
