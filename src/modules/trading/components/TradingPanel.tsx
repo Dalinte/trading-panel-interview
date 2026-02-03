@@ -3,13 +3,8 @@ import { OrderType, Side } from '@/types';
 import { SideTabs } from '../../../components/SideTabs.tsx';
 import { OrderTypeSelector } from '@/components/OrderTypeSelector.tsx';
 import { PriceInput } from '@/components/PriceInput.tsx';
-import { PercentSlider, SizeInput } from '@/components';
+import { PercentSlider, SizeInput, SubmitButton } from '@/components';
 import { calculatePosition } from '@/utils/calculations.ts';
-// import { OrderTypeSelector } from './OrderTypeSelector'
-// import { PriceInput } from './PriceInput'
-// import { SizeInput } from './SizeInput'
-// import { PercentSlider } from './PercentSlider'
-// import { SubmitButton } from './SubmitButton'
 
 export function TradingPanel() {
   const [side, setSide] = useState<Side>('long');
@@ -55,22 +50,22 @@ export function TradingPanel() {
       <div className="summary">
         <div className="summary-row">
           <span>Стоимость ордера</span>
-          <span>{calculatePosition({
-            side,
-            size: Number(size),
-            entryPrice: Number(price),
-            leverage: 1
-          }).notionalValue} — USDC</span>
+          <span>
+            {
+              calculatePosition({
+                side,
+                size: Number(size),
+                entryPrice: Number(price),
+                leverage: 1,
+              }).notionalValue
+            }{' '}
+            USDC
+          </span>
         </div>
       </div>
 
-      {/* 
-        КОМПОНЕНТ 6: SubmitButton
-        Props: side: Side, disabled: boolean, loading: boolean, onClick: () => void
-        Кнопка "Купить BTC" / "Продать BTC"
-      */}
       <div className="component-placeholder">
-        <span>SubmitButton</span>
+        <SubmitButton side={side} onClick={() => {}} />
       </div>
     </div>
   );

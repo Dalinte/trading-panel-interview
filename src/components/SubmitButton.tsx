@@ -7,15 +7,15 @@ interface SubmitButtonProps {
   onClick: () => void;
 }
 
-/**
- * TODO: Реализовать компонент
- *
- * Кнопка "Купить BTC" (зелёная) или "Продать BTC" (красная)
- * Показывает спиннер при loading
- * Блокируется при disabled или loading
- *
- * CSS классы готовы: .submit-btn, .submit-btn.buy, .submit-btn.sell, .spinner
- */
 export function SubmitButton({ side, disabled, loading, onClick }: SubmitButtonProps) {
-  return <button disabled>TODO: SubmitButton</button>;
+  return (
+    <button
+      className={`submit-btn ${side === 'long' ? 'buy' : 'sell'}`}
+      disabled={disabled || loading}
+      onClick={onClick}
+    >
+      {loading && <span className="spinner"></span>}
+      {!loading && (side === 'long' ? 'Купить BTC' : 'Продать BTC')}
+    </button>
+  );
 }
