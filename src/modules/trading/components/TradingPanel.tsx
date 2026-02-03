@@ -1,36 +1,37 @@
-import { useOrderStore } from '@/modules/trading/store/orderStore';
-
 import { SideTabs } from './SideTabs.tsx';
 import { OrderTypeSelector } from './OrderTypeSelector.tsx';
 import { PriceInput } from './PriceInput.tsx';
 import { PercentSlider } from './PercentSlider.tsx';
 import { SizeInput } from './SizeInput.tsx';
 import { SubmitButton } from './SubmitButton.tsx';
-import { calculatePosition } from '@/utils/calculations.ts';
-import { useOrderManager } from '@/modules/trading/hooks/useOrderManager.ts';
+import { useOrderManager } from '../hooks/useOrderManager.ts';
+import { useOrderPosition } from '../hooks/useOrderPosition.ts';
+
+const availableBalance = 10000; // USDC
 
 export function TradingPanel() {
   const {
+    isLoading,
+    createLimitOrder,
+    setPercent,
+    setSize,
     side,
+    setSide,
     orderType,
+    setOrderType,
     price,
+    setPrice,
     size,
     percent,
-    setSide,
-    setOrderType,
-    setPrice,
-    setSize,
-    setPercent,
-  } = useOrderStore();
+  } = useOrderManager();
 
-  const { isLoading, createLimitOrder } = useOrderManager();
+  const { position, validation } = useOrderPosition();
 
-  const handleSubmit = () => {
-    createLimitOrder();
+  const handleChangePercent = (value: number) => {
+    setPercent(value);
+    const calculatedSize = (availableBalance * value) / 100;
+    setSize(String(calculatedSize));
   };
-
-  // Available balance (mock data)
-  const availableBalance = 10000; // USDC
 
   return (
     <div className="trading-panel">
@@ -48,7 +49,7 @@ export function TradingPanel() {
 
       <div className="balance-row">
         <span>Доступно</span>
-        <span>{availableBalance.toLocaleString()} USDC</span>
+        <span>{availableBalance} USDC</span>
       </div>
 
       <div className="component-placeholder">
@@ -60,37 +61,22 @@ export function TradingPanel() {
       </div>
 
       <div className="component-placeholder">
-        <PercentSlider value={percent} onChange={setPercent} />
+        <PercentSlider value={percent} onChange={handleChangePercent} />
       </div>
 
       <div className="summary">
         <div className="summary-row">
           <span>Стоимость ордера</span>
-          <span>
-            {
-              calculatePosition({
-                side,
-                size: Number(size),
-                entryPrice: Number(price),
-                leverage: 1,
-              }).notionalValue
-            }{' '}
-            USDC
-          </span>
+          <span>{`${position.notionalValue} USDC`}</span>
         </div>
       </div>
 
       <div className="component-placeholder">
         <SubmitButton
           side={side}
-          disabled={
-            !Number(size) ||
-            !Number(price) ||
-            // isInsufficientMargin ||
-            isLoading
-          }
+          disabled={!validation.isValid || isLoading}
           loading={isLoading}
-          onClick={handleSubmit}
+          onClick={createLimitOrder}
         />
       </div>
     </div>

@@ -5,15 +5,15 @@ import { showOrderNotification } from '../utils/showOrderNotification.ts';
 
 export function useOrderManager() {
   const [isLoading, setIsLoading] = useState(false);
-  const { side, price, size, resetForm } = useOrderStore();
+  const orderStore = useOrderStore();
 
   const createLimitOrder = async () => {
     setIsLoading(true);
 
     const { orderId } = await createOrder({
-      side,
-      entryPrice: parseFloat(price),
-      size: parseFloat(size),
+      side: orderStore.side,
+      entryPrice: parseFloat(orderStore.price),
+      size: parseFloat(orderStore.size),
       leverage: 1,
     });
 
@@ -28,12 +28,12 @@ export function useOrderManager() {
           setTimeout(checkOrderStatus, 1000);
           break;
         case 'rejected':
-          resetForm();
+          orderStore.resetForm();
           setIsLoading(false);
           break;
         case 'filled':
           setIsLoading(false);
-          resetForm();
+          orderStore.resetForm();
       }
     };
 
@@ -43,6 +43,6 @@ export function useOrderManager() {
   return {
     isLoading,
     createLimitOrder,
-    resetForm,
+    ...orderStore,
   };
 }
