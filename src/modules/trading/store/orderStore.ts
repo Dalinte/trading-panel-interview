@@ -6,7 +6,7 @@ interface OrderFormState {
   orderType: OrderType;
   price: string;
   size: string;
-  percent: number;
+  percent: number | null;
 }
 
 interface OrderFormActions {
@@ -23,9 +23,9 @@ type OrderStore = OrderFormState & OrderFormActions;
 const initialState: OrderFormState = {
   side: 'long',
   orderType: 'limit',
-  price: '',
+  price: '46800',
   size: '',
-  percent: 25,
+  percent: null,
 };
 
 export const useOrderStore = create<OrderStore>((set) => ({

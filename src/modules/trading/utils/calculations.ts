@@ -32,7 +32,8 @@ export function calculatePosition(input: PositionInput): CalculatedValues {
  */
 export function validatePosition(
   input: PositionInput,
-  calculated: CalculatedValues
+  calculated: CalculatedValues,
+  availableBalance: number
 ): ValidationResult {
   const errors: string[] = [];
 
@@ -57,8 +58,27 @@ export function validatePosition(
     errors.push('Required margin must be greater than maintenance margin');
   }
 
+  // Check balance
+  if (calculated.notionalValue > availableBalance) {
+    errors.push('Insufficient funds');
+  }
+
   return {
     isValid: errors.length === 0,
     errors,
   };
 }
+
+export const calculateSizeFromPercent = (
+  input: PositionInput,
+  availableBalance: number,
+  sliderPercent: number
+) => {
+  const decimalPercent = sliderPercent / 100;
+
+  const margin = availableBalance * decimalPercent;
+  const positionValue = margin * input.leverage;
+  const size = positionValue / input.entryPrice;
+
+  return size
+};

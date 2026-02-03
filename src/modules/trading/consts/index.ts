@@ -1,1 +1,1 @@
-export const availableBalance = 10000; // USDC
+export const AVAILABLE_BALANCE = 10000; // USDC

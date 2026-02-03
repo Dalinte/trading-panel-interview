@@ -6,7 +6,8 @@ import { SizeInput } from './SizeInput.tsx';
 import { SubmitButton } from './SubmitButton.tsx';
 import { useOrderManager } from '../hooks/useOrderManager.ts';
 import { useOrderPosition } from '../hooks/useOrderPosition.ts';
-import { availableBalance } from '../consts';
+import { useOrderValidation } from '../hooks/useOrderValidation.ts';
+import { AVAILABLE_BALANCE } from '../consts';
 
 export function TradingPanel() {
   const {
@@ -23,7 +24,8 @@ export function TradingPanel() {
     percent,
   } = useOrderManager();
 
-  const { position, validation, handleChangePercent } = useOrderPosition();
+  const { position, handleChangePercent } = useOrderPosition();
+  const { validation } = useOrderValidation(position);
 
   return (
     <div className="trading-panel">
@@ -41,7 +43,7 @@ export function TradingPanel() {
 
       <div className="balance-row">
         <span>Доступно</span>
-        <span>{availableBalance} USDC</span>
+        <span>{AVAILABLE_BALANCE} USDC</span>
       </div>
 
       <div className="component-placeholder">
@@ -59,7 +61,7 @@ export function TradingPanel() {
       <div className="summary">
         <div className="summary-row">
           <span>Стоимость ордера</span>
-          <span>{`${position.notionalValue} USDC`}</span>
+          <span>{`${position.notionalValue || 0} USDC`}</span>
         </div>
       </div>
 
