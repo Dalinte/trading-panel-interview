@@ -14,7 +14,7 @@ export const useOrderValidation = (position: CalculatedValues) => {
       size: parseFloat(size),
       entryPrice: parseFloat(price),
       leverage: 1,
-    }, position, AVAILABLE_BALANCE)
+    }, position, side === 'long' ? AVAILABLE_BALANCE.USDC : AVAILABLE_BALANCE.BTC)
   }, [side, size, price, position])
 
   return {

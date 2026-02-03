@@ -1,1 +1,4 @@
-export const AVAILABLE_BALANCE = 10000; // USDC
+export const AVAILABLE_BALANCE = {
+  USDC: 10000,
+  BTC: 0.3
+}

@@ -15,7 +15,7 @@ export const useOrderPosition = () => {
           entryPrice: parseFloat(price),
           leverage: 1,
         },
-        AVAILABLE_BALANCE,
+        side === 'long' ?  AVAILABLE_BALANCE.USDC : AVAILABLE_BALANCE.BTC,
         percent
       );
 

@@ -43,7 +43,7 @@ export function TradingPanel() {
 
       <div className="balance-row">
         <span>Доступно</span>
-        <span>{AVAILABLE_BALANCE} USDC</span>
+        <span>{side === "long" ? AVAILABLE_BALANCE.USDC : AVAILABLE_BALANCE.BTC} {side === "long" ? 'USDC' : 'BTC'}</span>
       </div>
 
       <div className="component-placeholder">
