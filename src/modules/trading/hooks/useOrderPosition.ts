@@ -1,9 +1,16 @@
 import { useMemo } from 'react';
-import { calculatePosition, validatePosition } from '@/utils/calculations.ts';
-import { useOrderStore } from '@/modules/trading/store/orderStore.ts';
+import { calculatePosition, validatePosition } from '../utils/calculations.ts';
+import { useOrderStore } from '../store/orderStore.ts';
+import { availableBalance } from '../consts';
 
 export const useOrderPosition = () => {
-  const { side, size, price } = useOrderStore();
+  const { side, size, price, setPercent, setSize } = useOrderStore();
+
+  const handleChangePercent = (value: number) => {
+    setPercent(value);
+    const calculatedSize = (availableBalance * value) / 100;
+    setSize(String(calculatedSize));
+  };
 
   const position = useMemo(() => {
     return calculatePosition({
@@ -25,6 +32,7 @@ export const useOrderPosition = () => {
 
   return {
     position,
-    validation
+    validation,
+    handleChangePercent
   }
 };

@@ -6,14 +6,12 @@ import { SizeInput } from './SizeInput.tsx';
 import { SubmitButton } from './SubmitButton.tsx';
 import { useOrderManager } from '../hooks/useOrderManager.ts';
 import { useOrderPosition } from '../hooks/useOrderPosition.ts';
-
-const availableBalance = 10000; // USDC
+import { availableBalance } from '../consts';
 
 export function TradingPanel() {
   const {
     isLoading,
     createLimitOrder,
-    setPercent,
     setSize,
     side,
     setSide,
@@ -25,13 +23,7 @@ export function TradingPanel() {
     percent,
   } = useOrderManager();
 
-  const { position, validation } = useOrderPosition();
-
-  const handleChangePercent = (value: number) => {
-    setPercent(value);
-    const calculatedSize = (availableBalance * value) / 100;
-    setSize(String(calculatedSize));
-  };
+  const { position, validation, handleChangePercent } = useOrderPosition();
 
   return (
     <div className="trading-panel">
