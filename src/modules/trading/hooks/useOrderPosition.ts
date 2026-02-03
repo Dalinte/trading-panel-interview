@@ -34,8 +34,16 @@ export const useOrderPosition = () => {
     });
   }, [side, size, price]);
 
+  const formatedNotionalValue = useMemo(() => {
+    return new Intl.NumberFormat('ru-RU', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(position.notionalValue || 0)
+  }, [position.notionalValue])
+
   return {
     position,
+    formatedNotionalValue,
     handleChangePercent,
   };
 };

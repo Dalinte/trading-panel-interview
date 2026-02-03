@@ -6,7 +6,7 @@ import { SubmitButton } from './SubmitButton.tsx';
 import { useOrderManager } from '../hooks/useOrderManager.ts';
 import { useOrderPosition } from '../hooks/useOrderPosition.ts';
 import { useOrderValidation } from '../hooks/useOrderValidation.ts';
-import { AVAILABLE_BALANCE } from '../consts';
+import Balance from '@/modules/trading/components/Balance.tsx';
 
 export function TradingPanel() {
   const {
@@ -23,7 +23,7 @@ export function TradingPanel() {
     percent,
   } = useOrderManager();
 
-  const { position, handleChangePercent } = useOrderPosition();
+  const { position, handleChangePercent, formatedNotionalValue } = useOrderPosition();
   const { validation } = useOrderValidation(position);
 
   return (
@@ -36,13 +36,14 @@ export function TradingPanel() {
         <SideTabs value={side} onChange={setSide} />
       </div>
 
-      <div className="component-placeholder">
+      {/* Скрыто до реализации */}
+      <div className="component-placeholder" style={{ display: 'none' }}>
         <OrderTypeSelector value={orderType} onChange={setOrderType} />
       </div>
 
       <div className="balance-row">
         <span>Доступно</span>
-        <span>{side === "long" ? AVAILABLE_BALANCE.USDC : AVAILABLE_BALANCE.BTC} {side === "long" ? 'USDC' : 'BTC'}</span>
+        <Balance/>
       </div>
 
       <div className="component-placeholder">
@@ -60,10 +61,10 @@ export function TradingPanel() {
       <div className="summary">
         <div className="summary-row">
           <span>Стоимость ордера</span>
-          <span>{`${position.notionalValue || 0} USDC`}</span>
+          <span>{`${formatedNotionalValue} USDC`}</span>
         </div>
-        <div className='input-error'>
-          {validation.errors.map((error) => (
+        <div className="input-error">
+          {validation.errors.map(error => (
             <span>{error}</span>
           ))}
         </div>
