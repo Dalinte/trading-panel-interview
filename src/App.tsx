@@ -1,5 +1,5 @@
 import { ChartWidget } from '@/modules/chart';
-import { TradingPanel } from './components/TradingPanel';
+import { TradingPanel } from './modules/trading/components/TradingPanel.tsx';
 
 function App() {
   return (

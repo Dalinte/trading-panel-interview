@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { OrderType, Side } from '@/types';
-
-// TODO: Import your components
-import { SideTabs } from './SideTabs';
+import { SideTabs } from '../../../components/SideTabs.tsx';
 import { OrderTypeSelector } from '@/components/OrderTypeSelector.tsx';
 import { PriceInput } from '@/components/PriceInput.tsx';
+import { SizeInput } from '@/components';
 // import { OrderTypeSelector } from './OrderTypeSelector'
 // import { PriceInput } from './PriceInput'
 // import { SizeInput } from './SizeInput'
@@ -14,6 +13,8 @@ import { PriceInput } from '@/components/PriceInput.tsx';
 export function TradingPanel() {
   const [side, setSide] = useState<Side>('long');
   const [orderType, setOrderType] = useState<OrderType>('limit');
+  const [price, setPrice] = useState<string>('');
+  const [size, setSize] = useState<string>('');
 
   // Available balance (mock data)
   const availableBalance = 10000; // USDC
@@ -28,11 +29,6 @@ export function TradingPanel() {
         <SideTabs value={side} onChange={setSide} />
       </div>
 
-      {/* 
-        КОМПОНЕНТ 2: OrderTypeSelector
-        Props: value: 'limit' | 'market', onChange: (type) => void
-        Табы "Лимитный" / "Рыночный"
-      */}
       <div className="component-placeholder">
         <OrderTypeSelector value={orderType} onChange={setOrderType} />
       </div>
@@ -42,13 +38,8 @@ export function TradingPanel() {
         <span>{availableBalance.toLocaleString()} USDC</span>
       </div>
 
-      {/* 
-        КОМПОНЕНТ 3: PriceInput
-        Props: value: string, onChange: (value: string) => void, label: string
-        Инпут для цены с лейблом
-      */}
       <div className="component-placeholder">
-        <PriceInput value={'1'} onChange={() => {}} />
+        <PriceInput value={price} suffix="USDC" placeholder="Цена" onChange={setPrice} />
       </div>
 
       {/* 
@@ -57,7 +48,7 @@ export function TradingPanel() {
         Инпут для количества
       */}
       <div className="component-placeholder">
-        <span>SizeInput</span>
+        <SizeInput value={size} suffix="BTC" placeholder="Количество" onChange={setSize}/>
       </div>
 
       {/* 

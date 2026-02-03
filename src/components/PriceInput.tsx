@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 interface PriceInputProps {
   value: string;
   onChange: (value: string) => void;
@@ -14,11 +16,17 @@ interface PriceInputProps {
  *
  * CSS классы готовы: .input-field, .input-wrapper, .input-suffix
  */
-export function PriceInput({ value, onChange, label, suffix, placeholder }: PriceInputProps) {
+export function PriceInput({ value, onChange, suffix, placeholder }: PriceInputProps) {
   return (
     <div className="input-wrapper">
-      <span className="input-suffix">$</span>
-      <input type="text" className="input-field" />
+      <input
+        type="text"
+        className="input-field"
+        placeholder={placeholder}
+        value={value}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value)}
+      />
+      <span className="input-suffix">{suffix}</span>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 interface SizeInputProps {
   value: string;
   onChange: (value: string) => void;
@@ -5,14 +7,17 @@ interface SizeInputProps {
   suffix?: string;
   placeholder?: string;
 }
-
-/**
- * TODO: Реализовать компонент
- *
- * Инпут для количества (аналогичен PriceInput)
- *
- * CSS классы готовы: .input-field, .input-wrapper, .input-suffix
- */
 export function SizeInput({ value, onChange, label, suffix, placeholder }: SizeInputProps) {
-  return <div>TODO: SizeInput</div>;
+  return (
+    <div className="input-wrapper">
+      <input
+        type="text"
+        className="input-field"
+        placeholder={placeholder}
+        value={value}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value)}
+      />
+      <span className="input-suffix">{suffix}</span>
+    </div>
+  )
 }
