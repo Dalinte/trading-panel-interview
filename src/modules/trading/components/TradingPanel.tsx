@@ -3,7 +3,8 @@ import { OrderType, Side } from '@/types';
 import { SideTabs } from '../../../components/SideTabs.tsx';
 import { OrderTypeSelector } from '@/components/OrderTypeSelector.tsx';
 import { PriceInput } from '@/components/PriceInput.tsx';
-import { SizeInput } from '@/components';
+import { PercentSlider, SizeInput } from '@/components';
+import { calculatePosition } from '@/utils/calculations.ts';
 // import { OrderTypeSelector } from './OrderTypeSelector'
 // import { PriceInput } from './PriceInput'
 // import { SizeInput } from './SizeInput'
@@ -15,6 +16,7 @@ export function TradingPanel() {
   const [orderType, setOrderType] = useState<OrderType>('limit');
   const [price, setPrice] = useState<string>('');
   const [size, setSize] = useState<string>('');
+  const [percent, setPercent] = useState<number>(25);
 
   // Available balance (mock data)
   const availableBalance = 10000; // USDC
@@ -42,29 +44,23 @@ export function TradingPanel() {
         <PriceInput value={price} suffix="USDC" placeholder="Цена" onChange={setPrice} />
       </div>
 
-      {/* 
-        КОМПОНЕНТ 4: SizeInput
-        Props: value: string, onChange: (value: string) => void, currency: string
-        Инпут для количества
-      */}
       <div className="component-placeholder">
-        <SizeInput value={size} suffix="BTC" placeholder="Количество" onChange={setSize}/>
+        <SizeInput value={size} suffix="BTC" placeholder="Количество" onChange={setSize} />
       </div>
 
-      {/* 
-        КОМПОНЕНТ 5: PercentSlider
-        Props: value: number, onChange: (percent: number) => void
-        Кнопки/слайдер 25% / 50% / 75% / 100%
-      */}
       <div className="component-placeholder">
-        <span>PercentSlider (25/50/75/100%)</span>
+        <PercentSlider value={percent} onChange={setPercent} />
       </div>
 
-      {/* Calculated values - will be shown after implementation */}
       <div className="summary">
         <div className="summary-row">
           <span>Стоимость ордера</span>
-          <span>— USDC</span>
+          <span>{calculatePosition({
+            side,
+            size: Number(size),
+            entryPrice: Number(price),
+            leverage: 1
+          }).notionalValue} — USDC</span>
         </div>
       </div>
 

@@ -5,15 +5,18 @@ interface PercentSliderProps {
 
 const PERCENT_OPTIONS = [25, 50, 75, 100];
 
-/**
- * TODO: Реализовать компонент
- *
- * 4 кнопки: 25%, 50%, 75%, 100%
- * Выбранная кнопка подсвечена
- * При клике вызывается onChange с процентом
- *
- * CSS классы готовы: .percent-slider, .percent-btn, .percent-btn.active
- */
 export function PercentSlider({ value, onChange }: PercentSliderProps) {
-  return <div>TODO: PercentSlider</div>;
+  return (
+    <div className={'percent-slider'}>
+      {PERCENT_OPTIONS.map(percent => (
+        <button
+          key={percent}
+          className={`percent-btn ${value === percent && 'active'}`}
+          onClick={() => onChange(percent)}
+        >
+          {percent}%
+        </button>
+      ))}
+    </div>
+  );
 }
