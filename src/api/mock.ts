@@ -1,3 +1,5 @@
+import { Side } from '@/types';
+
 /**
  * Mock API
  */
@@ -7,7 +9,7 @@ let orderCounter = 0;
 const orders: Record<string, { status: string; filledSize?: number; reason?: string }> = {};
 
 export async function createOrder(data: {
-  side: 'long' | 'short';
+  side: Side;
   entryPrice: number;
   size: number;
   leverage: number;

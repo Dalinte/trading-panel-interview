@@ -11,9 +11,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@xstate/react": "^6.0.0",
     "lightweight-charts": "5.1.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "sonner": "^2.0.7",
+    "xstate": "^5.26.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

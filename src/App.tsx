@@ -1,16 +1,21 @@
 import { ChartWidget } from '@/modules/chart';
-import { TradingPanel } from './modules/trading/components/TradingPanel.tsx';
+import { TradingPanel } from '@/modules/trading';
+import { Toaster } from 'sonner'
 
 function App() {
   return (
-    <div className="app">
-      <div className="main-content">
-        <ChartWidget symbol="BTC/USDC" />
+    <div>
+      <Toaster richColors position="top-right"  />
+      <div className="app">
+        <div className="main-content">
+          <ChartWidget symbol="BTC/USDC" />
+        </div>
+        <aside className="sidebar">
+          <TradingPanel />
+        </aside>
       </div>
-      <aside className="sidebar">
-        <TradingPanel />
-      </aside>
     </div>
+
   );
 }
 

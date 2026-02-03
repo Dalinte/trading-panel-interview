@@ -7,7 +7,7 @@ interface SizeInputProps {
   suffix?: string;
   placeholder?: string;
 }
-export function SizeInput({ value, onChange, label, suffix, placeholder }: SizeInputProps) {
+export function SizeInput({ value, onChange, suffix, placeholder }: SizeInputProps) {
   return (
     <div className="input-wrapper">
       <input
