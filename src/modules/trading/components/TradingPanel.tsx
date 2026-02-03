@@ -62,6 +62,11 @@ export function TradingPanel() {
           <span>Стоимость ордера</span>
           <span>{`${position.notionalValue || 0} USDC`}</span>
         </div>
+        <div className='input-error'>
+          {validation.errors.map((error) => (
+            <span>{error}</span>
+          ))}
+        </div>
       </div>
 
       <div className="component-placeholder">
