@@ -28,3 +28,9 @@ export interface Order {
   filledSize?: number;
   reason?: string;
 }
+
+export interface OrderStatusResponse {
+  status: OrderStatus
+  filledSize?: number;
+  reason?: string;
+}

@@ -5,7 +5,7 @@ import { Toaster } from 'sonner'
 function App() {
   return (
     <div>
-      <Toaster richColors position="top-right"  />
+      <Toaster richColors position="top-right" />
       <div className="app">
         <div className="main-content">
           <ChartWidget symbol="BTC/USDC" />
@@ -15,7 +15,6 @@ function App() {
         </aside>
       </div>
     </div>
-
   );
 }
 

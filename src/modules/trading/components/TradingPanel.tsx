@@ -1,17 +1,33 @@
-import { useState } from 'react';
-import { OrderType, Side } from '@/types';
-import { SideTabs } from '../../../components/SideTabs.tsx';
-import { OrderTypeSelector } from '@/components/OrderTypeSelector.tsx';
-import { PriceInput } from '@/components/PriceInput.tsx';
-import { PercentSlider, SizeInput, SubmitButton } from '@/components';
+import { useOrderStore } from '@/modules/trading/store/orderStore';
+
+import { SideTabs } from './SideTabs.tsx';
+import { OrderTypeSelector } from './OrderTypeSelector.tsx';
+import { PriceInput } from './PriceInput.tsx';
+import { PercentSlider } from './PercentSlider.tsx';
+import { SizeInput } from './SizeInput.tsx';
+import { SubmitButton } from './SubmitButton.tsx';
 import { calculatePosition } from '@/utils/calculations.ts';
+import { useOrderManager } from '@/modules/trading/hooks/useOrderManager.ts';
 
 export function TradingPanel() {
-  const [side, setSide] = useState<Side>('long');
-  const [orderType, setOrderType] = useState<OrderType>('limit');
-  const [price, setPrice] = useState<string>('');
-  const [size, setSize] = useState<string>('');
-  const [percent, setPercent] = useState<number>(25);
+  const {
+    side,
+    orderType,
+    price,
+    size,
+    percent,
+    setSide,
+    setOrderType,
+    setPrice,
+    setSize,
+    setPercent,
+  } = useOrderStore();
+
+  const { isLoading, createLimitOrder } = useOrderManager();
+
+  const handleSubmit = () => {
+    createLimitOrder();
+  };
 
   // Available balance (mock data)
   const availableBalance = 10000; // USDC
@@ -65,7 +81,17 @@ export function TradingPanel() {
       </div>
 
       <div className="component-placeholder">
-        <SubmitButton side={side} onClick={() => {}} />
+        <SubmitButton
+          side={side}
+          disabled={
+            !Number(size) ||
+            !Number(price) ||
+            // isInsufficientMargin ||
+            isLoading
+          }
+          loading={isLoading}
+          onClick={handleSubmit}
+        />
       </div>
     </div>
   );
