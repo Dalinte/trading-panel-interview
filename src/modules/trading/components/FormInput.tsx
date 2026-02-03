@@ -8,15 +8,7 @@ interface PriceInputProps {
   placeholder?: string;
 }
 
-/**
- * TODO: Реализовать компонент
- *
- * Инпут с лейблом и суффиксом (например "USDC")
- * Только числовые значения
- *
- * CSS классы готовы: .input-field, .input-wrapper, .input-suffix
- */
-export function PriceInput({ value, onChange, suffix, placeholder }: PriceInputProps) {
+export function FormInput({ value, onChange, suffix, placeholder }: PriceInputProps) {
   return (
     <div className="input-wrapper">
       <input

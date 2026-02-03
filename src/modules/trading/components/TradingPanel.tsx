@@ -1,8 +1,7 @@
 import { SideTabs } from './SideTabs.tsx';
 import { OrderTypeSelector } from './OrderTypeSelector.tsx';
-import { PriceInput } from './PriceInput.tsx';
+import { FormInput } from './FormInput.tsx';
 import { PercentSlider } from './PercentSlider.tsx';
-import { SizeInput } from './SizeInput.tsx';
 import { SubmitButton } from './SubmitButton.tsx';
 import { useOrderManager } from '../hooks/useOrderManager.ts';
 import { useOrderPosition } from '../hooks/useOrderPosition.ts';
@@ -47,11 +46,11 @@ export function TradingPanel() {
       </div>
 
       <div className="component-placeholder">
-        <PriceInput value={price} suffix="USDC" placeholder="Цена" onChange={setPrice} />
+        <FormInput value={price} suffix="USDC" placeholder="Цена" onChange={setPrice} />
       </div>
 
       <div className="component-placeholder">
-        <SizeInput value={size} suffix="BTC" placeholder="Количество" onChange={setSize} />
+        <FormInput value={size} suffix="BTC" placeholder="Количество" onChange={setSize} />
       </div>
 
       <div className="component-placeholder">
