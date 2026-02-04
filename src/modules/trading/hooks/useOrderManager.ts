@@ -12,7 +12,7 @@ export function useOrderManager() {
     setIsLoading(true);
 
     if (hapticFeedback.isSupported()) {
-      hapticFeedback.impactOccurred('medium');
+      hapticFeedback.impactOccurred('heavy');
     }
 
     const { orderId } = await createOrder({
@@ -34,10 +34,12 @@ export function useOrderManager() {
           break;
         case 'rejected':
           orderStore.resetForm();
+          hapticFeedback.notificationOccurred('error');
           setIsLoading(false);
           break;
         case 'filled':
           setIsLoading(false);
+          hapticFeedback.notificationOccurred('success');
           orderStore.resetForm();
       }
     };
