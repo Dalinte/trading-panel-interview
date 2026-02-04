@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tma.js/sdk-react": "^3.0.15",
     "@xstate/react": "^6.0.0",
     "lightweight-charts": "5.1.0",
     "react": "^18.3.1",

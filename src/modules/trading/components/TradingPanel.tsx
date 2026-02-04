@@ -65,7 +65,7 @@ export function TradingPanel() {
         </div>
         <div className="input-error">
           {validation.errors.map(error => (
-            <span>{error}</span>
+            <span key={error}>{error}</span>
           ))}
         </div>
       </div>

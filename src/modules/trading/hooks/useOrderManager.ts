@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createOrder, getOrderStatus } from '@/api/mock';
 import { useOrderStore } from '../store/orderStore.ts';
 import { showOrderNotification } from '../utils/showOrderNotification.ts';
+import { hapticFeedback } from '@tma.js/sdk-react';
 
 export function useOrderManager() {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +10,10 @@ export function useOrderManager() {
 
   const createLimitOrder = async () => {
     setIsLoading(true);
+
+    if (hapticFeedback.isSupported()) {
+      hapticFeedback.impactOccurred('medium');
+    }
 
     const { orderId } = await createOrder({
       side: orderStore.side,
