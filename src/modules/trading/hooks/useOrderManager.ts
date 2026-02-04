@@ -35,12 +35,12 @@ export function useOrderManager() {
         case 'rejected':
           orderStore.resetForm();
           setIsLoading(false);
-          hapticFeedback.notificationOccurred('error');
+          if (hapticFeedback.isSupported()) hapticFeedback.notificationOccurred('error');
           break;
         case 'filled':
           setIsLoading(false);
           orderStore.resetForm();
-          hapticFeedback.notificationOccurred('success');
+          if (hapticFeedback.isSupported()) hapticFeedback.notificationOccurred('success');
       }
     };
 
