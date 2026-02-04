@@ -2,30 +2,36 @@ import { createChart, ColorType, CandlestickSeries } from 'lightweight-charts';
 import { useEffect, useRef } from 'react';
 import { Candle } from '../types.ts';
 
+const getCSSVariable = (variableName: string): string => {
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue(variableName)
+    .trim() || '';
+};
+
 interface ChartContainerProps {
   data: Candle[];
   colors?: {
     backgroundColor?: string;
-    lineColor?: string;
     textColor?: string;
   };
 }
 
 export const ChartContainer = (props: ChartContainerProps) => {
-  const {
-    data,
-    colors: { backgroundColor = '#1e2329', lineColor = '#2b3139', textColor = 'white' } = {},
-  } = props;
+  const { data } = props;
 
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!chartContainerRef.current) return;
+
+    const backgroundColor = getCSSVariable('--bg-secondary');
+    const textColor = 'white';
+    const chartHeight = parseInt(getCSSVariable('--chart-height')) || 600;
+
     const handleResize = () => {
       if (!chartContainerRef.current) return;
       chart.applyOptions({ width: chartContainerRef.current.clientWidth });
     };
-
-    if (!chartContainerRef.current) return;
 
     const chart = createChart(chartContainerRef.current, {
       layout: {
@@ -33,8 +39,9 @@ export const ChartContainer = (props: ChartContainerProps) => {
         textColor,
       },
       width: chartContainerRef.current.clientWidth,
-      height: 600,
+      height: chartHeight,
     });
+
     chart.timeScale().fitContent();
 
     const newSeries = chart.addSeries(CandlestickSeries);
@@ -44,10 +51,9 @@ export const ChartContainer = (props: ChartContainerProps) => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-
       chart.remove();
     };
-  }, [data, backgroundColor, lineColor, textColor]);
+  }, [data]);
 
   return <div ref={chartContainerRef} />;
 };
