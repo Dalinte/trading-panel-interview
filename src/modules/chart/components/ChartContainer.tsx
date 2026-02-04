@@ -3,17 +3,11 @@ import { useEffect, useRef } from 'react';
 import { Candle } from '../types.ts';
 
 const getCSSVariable = (variableName: string): string => {
-  return getComputedStyle(document.documentElement)
-    .getPropertyValue(variableName)
-    .trim() || '';
+  return getComputedStyle(document.documentElement).getPropertyValue(variableName).trim() || '';
 };
 
 interface ChartContainerProps {
   data: Candle[];
-  colors?: {
-    backgroundColor?: string;
-    textColor?: string;
-  };
 }
 
 export const ChartContainer = (props: ChartContainerProps) => {
@@ -26,11 +20,13 @@ export const ChartContainer = (props: ChartContainerProps) => {
 
     const backgroundColor = getCSSVariable('--bg-secondary');
     const textColor = 'white';
-    const chartHeight = parseInt(getCSSVariable('--chart-height')) || 600;
 
     const handleResize = () => {
       if (!chartContainerRef.current) return;
-      chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+      console.log( chartContainerRef.current);
+      chart.applyOptions({
+        width: chartContainerRef.current.clientWidth,
+      });
     };
 
     const chart = createChart(chartContainerRef.current, {
@@ -39,7 +35,7 @@ export const ChartContainer = (props: ChartContainerProps) => {
         textColor,
       },
       width: chartContainerRef.current.clientWidth,
-      height: chartHeight,
+      height: 600,
     });
 
     chart.timeScale().fitContent();
@@ -55,5 +51,5 @@ export const ChartContainer = (props: ChartContainerProps) => {
     };
   }, [data]);
 
-  return <div ref={chartContainerRef} />;
+  return <div className={'chart-placeholder'} ref={chartContainerRef} />;
 };
