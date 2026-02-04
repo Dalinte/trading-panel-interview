@@ -34,13 +34,13 @@ export function useOrderManager() {
           break;
         case 'rejected':
           orderStore.resetForm();
-          hapticFeedback.notificationOccurred('error');
           setIsLoading(false);
+          hapticFeedback.notificationOccurred('error');
           break;
         case 'filled':
           setIsLoading(false);
-          hapticFeedback.notificationOccurred('success');
           orderStore.resetForm();
+          hapticFeedback.notificationOccurred('success');
       }
     };
 
