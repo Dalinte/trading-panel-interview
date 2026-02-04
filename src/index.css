@@ -16,6 +16,11 @@
   --red: #f6465d;
   --red-hover: #ff5a70;
   --yellow: #fcd535;
+  --chart-height: 600;
+
+  @media (max-width: 1000px) {
+    --chart-height: 400;
+  }
 }
 
 body {
@@ -37,6 +42,7 @@ body {
   @media (max-width: 1000px) {
     grid-template-columns: 100%;
     grid-template-rows: 400px 300px;
+    --chart-height: 400;
   }
 }
 
@@ -51,6 +57,10 @@ body {
   width: 320px;
   background: var(--bg-secondary);
   flex-shrink: 0;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 }
 
 /* Chart */
@@ -90,6 +100,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    padding: 16px 40px;
+  }
 }
 
 .panel-header {
@@ -129,11 +144,11 @@ body {
 /* Error */
 
 .input-error {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--red);
-    min-height: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--red);
+  min-height: 18px;
 }
 
 /* Placeholder for components - DELETE after implementation */

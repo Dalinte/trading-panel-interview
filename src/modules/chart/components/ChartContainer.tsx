@@ -20,12 +20,15 @@ export const ChartContainer = (props: ChartContainerProps) => {
 
     const backgroundColor = getCSSVariable('--bg-secondary');
     const textColor = 'white';
+    const chartHeight = parseInt(getCSSVariable('--chart-height')) || 600;
 
     const handleResize = () => {
       if (!chartContainerRef.current) return;
-      console.log( chartContainerRef.current);
+      const currentChartHeight = parseInt(getCSSVariable('--chart-height')) || 600;
+
       chart.applyOptions({
         width: chartContainerRef.current.clientWidth,
+        height: currentChartHeight,
       });
     };
 
@@ -35,7 +38,7 @@ export const ChartContainer = (props: ChartContainerProps) => {
         textColor,
       },
       width: chartContainerRef.current.clientWidth,
-      height: 600,
+      height: chartHeight,
     });
 
     chart.timeScale().fitContent();
